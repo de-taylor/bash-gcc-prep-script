@@ -16,8 +16,8 @@ actiontext=$(tput setaf 6; tput setab 0) # blue on black background
 cleartext=$(tput sgr0) # clear styling
 
 # get flags and flag values from script call
-while getopts :c:o:r option; do
-	case $option in
+while getopts :c:o:r flag; do
+	case $flag in
 		c) compiler=$OPTARG;; # what type of compiler, gcc/g++ [optional]
 		o) outputfile=$OPTARG;; # what the output file should be called, default to filename [optional]
 		r) runflag=0;; # yes, run file upon successful compilation [optional]

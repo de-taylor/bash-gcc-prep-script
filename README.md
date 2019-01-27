@@ -4,7 +4,7 @@
 
 ## Description of Scripts
 
-### Flags and Arguments - bgps <main project file>.c|.cpp [-c gcc|g++] [-o <output filename>] [-r]
+### Flags and Arguments - bgps [-c gcc | g++] [-o <output filename>] [-r] <main project file>.c | <main project file>.cpp
 
 - Arg 1 - indicate the filename of the C/C++ project file with the main() function
 	- this is where the script will look for headers/implementation files to add to the script
