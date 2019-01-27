@@ -8,6 +8,7 @@
 
 # global flags
 compflag=0 # whether or not to compile, 0=true, 1=false
+runflag=1 # whether or not to run the program after compiling, 0=true, 1=false, default to no
 
 # styling variables
 errortext=$(tput setaf 1; tput setab 0)
@@ -15,11 +16,12 @@ actiontext=$(tput setaf 6; tput setab 0)
 cleartext=$(tput sgr0)
 
 # get flags and flag values from script call
-while getopts :f:c:o: option; do  # f is for the file with the main function in it, c is getting the compiler type gcc/g++
+while getopts :f:c:o:r option; do  # f is for the file with the main function in it, c is getting the compiler type gcc/g++
 	case $option in
 		f) filename=$OPTARG;; # name of c/c++ file to work on
 		c) compiler=$OPTARG;; # what type of compiler, gcc/g++
 		o) outputfile=$OPTARG;; # what the output file should be called, default to filename
+		r) runflag=0;; # yes, run file upon successful compilation
 		?) echo $errortext"$OPTARG is not a recognized option for this script."$cleartext && compflag=1;;
 	esac
 done
@@ -91,4 +93,11 @@ compcmd=$($compiler -O -g -Wall -std=$cstd $files -o "$outputfile")
 echo $actiontext"Executing command: $compiler -O -g -Wall -std=$cstd $files-o $outputfile"$cleartext
 
 # execute compilation
-$compcmd
+if $compcmd ; then
+	if [ $runflag -eq 0 ]; then
+		echo
+		echo $actiontext"================================ Running $outputfile... ===================================="$cleartext
+		echo
+		./$outputfile # run newly compiled program
+	fi
+fi
