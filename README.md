@@ -25,13 +25,13 @@
 
 ## WIP
 
-- [] Create dynamic compiler selection for .c/.cpp file extensions
+- [ ] Create dynamic compiler selection for .c/.cpp file extensions
 	- minor change, subversion increment (x.(x+1))
-- [] Differentiate behavior for .h and .c files that are `#include`-d
+- [ ] Differentiate behavior for .h and .c files that are `#include`-d
 	- For .h, add .h/.c both to compilation
 	- For .c, only add the .c to the compilation, it has no other file with it
 	- minor change, subversion increment (x.(x+1))
-- [] Scan ALL found .h/.c files for OTHER .h/.c files that have not yet been added to compilation
+- [ ] Scan ALL found .h/.c files for OTHER .h/.c files that have not yet been added to compilation
 	- breaking change ((x+1).0)
 
 ## Versioning
