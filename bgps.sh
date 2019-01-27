@@ -59,7 +59,7 @@ function scanfile {
 
 # check to make sure main product file exists
 if [[ ! -f $filename ]]; then
-	echo $errortext"ERROR: "$cleartext"That file doesn't exist"
+	echo $errortext"ERROR: "$cleartext"$filename doesn't exist"
 	compflag=1
 else
 	scanfile
@@ -68,36 +68,39 @@ fi
 if [ $compflag -eq 1 ]; then
 	echo $errortext"Aborting compilation..."$cleartext
 else
-	while read hdrf; do
-		if [[ ! -f "$hdrf.h" ]]; then
-			echo $errortext"ERROR: "$cleartext"$hdrf.h doesn't exist, compilation can't continue."
-			compflag=1 # cannot continue, flag will terminate compilation
-			break
-		else
-			echo $actiontext"Adding $hdrf.h and $hdrf.c to compilation command..."$cleartext
-			compfiles+=("$hdrf.h") && compfiles+=("$hdrf.c") # need to add header and implementation
+	if [[ -f "tempfile.txt" ]]; then # if it doesn't exist, there were no headers included in main project file
+		while read hdrf; do
+			if [[ ! -f "$hdrf.h" ]]; then
+				echo $errortext"ERROR: "$cleartext"$hdrf.h doesn't exist, compilation can't continue."
+				compflag=1 # cannot continue, flag will terminate compilation
+				break
+			else
+				echo $actiontext"Adding $hdrf.h and $hdrf.c to compilation command..."$cleartext
+				compfiles+=("$hdrf.h") && compfiles+=("$hdrf.c") # need to add header and implementation
+			fi
+		done < tempfile.txt
+
+		# remove temporary file storage after adding to internal array
+		rm tempfile.txt
+	fi
+
+	# create string to append to command
+	files=""
+	for hdr in "${compfiles[@]}"; do
+		files+="$hdr "
+	done
+
+	# build command
+	compcmd=$($compiler -O -g -Wall -std=$cstd $files -o "$outputfile")
+	echo $actiontext"Executing command: $compiler -O -g -Wall -std=$cstd $files-o $outputfile"$cleartext
+
+	# execute compilation, and run if successful AND the -r flag was selected
+	if $compcmd ; then
+		if [ $runflag -eq 0 ]; then
+			echo
+			echo $actiontext"================================ Running $outputfile... ===================================="$cleartext
+			echo
+			./$outputfile # run newly compiled program
 		fi
-	done < tempfile.txt
-	# remove temporary file storage after adding to internal array
-	sudo rm tempfile.txt
-fi
-
-files=""
-
-for hdr in "${compfiles[@]}"; do
-	files+="$hdr "
-done
-
-# build command
-compcmd=$($compiler -O -g -Wall -std=$cstd $files -o "$outputfile")
-echo $actiontext"Executing command: $compiler -O -g -Wall -std=$cstd $files-o $outputfile"$cleartext
-
-# execute compilation
-if $compcmd ; then
-	if [ $runflag -eq 0 ]; then
-		echo
-		echo $actiontext"================================ Running $outputfile... ===================================="$cleartext
-		echo
-		./$outputfile # run newly compiled program
 	fi
 fi
