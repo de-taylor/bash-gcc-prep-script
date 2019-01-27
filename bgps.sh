@@ -30,7 +30,7 @@ filename=$1 # should be argument 1 for the script
 # error resistance for filename
 while [[ -z $filename ]]; do # if the variable is empty
 	# prompt for a filename, this is not optional
-	read -p "You must enter a filename: "
+	read -p "You must enter a filename: " filename
 done
 
 # default command options

@@ -4,7 +4,7 @@
 
 ## Syntax: bgps filename.c/cpp [-c gcc/g++] [-o outputfilename] [-r]
 
-## Flags and Arguments
+## Flags and Arguments - bgps
 
 - Arg 1 - indicate the filename of the C/C++ project file with the main() function
 	- this is where the script will look for headers/implementation files to add to the script
@@ -16,6 +16,13 @@
 - -o - [optional] - indicate the name of the compiled executable
 	- defaults to filename from -f, and drops the file extension
 - -r - [optional] - indicate whether or not the script should run the new executable after compilation
+
+## Flags and Arguments - install.sh
+
+- -s - [optional] - Run install silently
+- -r - [optional] - View README.md after the install is complete (3s pause before README.md opens)
+- -d - [optional] - Set a new directory to place the symlink. Not recommended, unless you want to put it in /usr/bin/ or /usr/sbin/ instead of the default /usr/local/bin
+- -u - [optional] - Uninstall, essentially just removes the symlink, you still have to delete the files if you want it gone.
 
 ## WIP
 
@@ -29,6 +36,7 @@
 		- All flags are now optional, and there are defaults set based on the original filename
 	- Changed the flow of the logic after the tempfile was thrown away, so the compiler doesn't try to run if the main file doesn't exist, or other catastrophe occurs.
 	- Added some more comments for comprehension
+	- Added a neat little install script, so you can run the script globally with no overhead. See above for install script flags.
 
 ### v1.0 - 1/25/2019 - Original release, first working script
 
