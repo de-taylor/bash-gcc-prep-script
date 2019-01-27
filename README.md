@@ -2,11 +2,11 @@
 
 ## Purpose: To simplify my C/C++ project compilation without the overhead of an IDE on Linux machines
 
-## Syntax: bgps -f filename.c/cpp [-c gcc/g++] [-o outputfilename] [-r]
+## Syntax: bgps filename.c/cpp [-c gcc/g++] [-o outputfilename] [-r]
 
-## Flags
+## Flags and Arguments
 
-- -f - indicate the filename of the C/C++ project file with the main() function
+- Arg 1 - indicate the filename of the C/C++ project file with the main() function
 	- this is where the script will look for headers/implementation files to add to the script
 	- for .h files, the script tries to find both a .h and a .c file to the compilation command
 	- FUTURE FEATURE: be able to differentiate between .h and .c files included
@@ -23,7 +23,15 @@
 
 ## Versioning
 
-- v1.0 - Original release, first working script
+### v1.1 - 1/26/2019 - Added some major changes to the structure of the script, and added error checking to ensure that I'm not a dunce
+
+	- Changed file specification from a flag to a script argument, to facilitate proper error checking and recovery
+		- All flags are now optional, and there are defaults set based on the original filename
+	- Changed the flow of the logic after the tempfile was thrown away, so the compiler doesn't try to run if the main file doesn't exist, or other catastrophe occurs.
+	- Added some more comments for comprehension
+
+### v1.0 - 1/25/2019 - Original release, first working script
+
 	- Came with the -f, -c, -o, and -r flags
 	- Auto-selected the -std= to run based on compiler
 		- gcc - -std=c11

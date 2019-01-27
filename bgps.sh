@@ -1,29 +1,36 @@
 
 #!/bin/bash
-# BASH GCC Compiler Prep
+# BASH GCC Prep Script
 # Simplifies the compilation of large C and C++ projects without using a clunky IDE by automatically finding and adding your header
 # files and their .c bodies to your gcc command. Yippee!
 # Created by Dallas Taylor (TheOnyxheart) under a GPL license, you can distribute, modify, or copy at your own peril.
-# v0.1 - 01/2019
+# v1.1 - 01/2019 - Officially released -- and already there's some stuff to fix...
 
 # global flags
 compflag=0 # whether or not to compile, 0=true, 1=false
 runflag=1 # whether or not to run the program after compiling, 0=true, 1=false, default to no
 
 # styling variables
-errortext=$(tput setaf 1; tput setab 0)
-actiontext=$(tput setaf 6; tput setab 0)
-cleartext=$(tput sgr0)
+errortext=$(tput setaf 1; tput setab 0) # red on black background
+actiontext=$(tput setaf 6; tput setab 0) # blue on black background
+cleartext=$(tput sgr0) # clear styling
 
 # get flags and flag values from script call
-while getopts :f:c:o:r option; do  # f is for the file with the main function in it, c is getting the compiler type gcc/g++
+while getopts :c:o:r option; do
 	case $option in
-		f) filename=$OPTARG;; # name of c/c++ file to work on
-		c) compiler=$OPTARG;; # what type of compiler, gcc/g++
-		o) outputfile=$OPTARG;; # what the output file should be called, default to filename
-		r) runflag=0;; # yes, run file upon successful compilation
+		c) compiler=$OPTARG;; # what type of compiler, gcc/g++ [optional]
+		o) outputfile=$OPTARG;; # what the output file should be called, default to filename [optional]
+		r) runflag=0;; # yes, run file upon successful compilation [optional]
 		?) echo $errortext"$OPTARG is not a recognized option for this script."$cleartext && compflag=1;;
 	esac
+done
+
+filename=$1 # should be argument 1 for the script
+
+# error resistance for filename
+while [[ -z $filename ]]; do # if the variable is empty
+	# prompt for a filename, this is not optional
+	read -p "You must enter a filename: "
 done
 
 # default command options
