@@ -2,9 +2,9 @@
 
 ## Purpose: To simplify my C/C++ project compilation without the overhead of an IDE on Linux machines
 
-## Syntax: bgps filename.c/cpp [-c gcc/g++] [-o outputfilename] [-r]
+## Description of Scripts
 
-## Flags and Arguments - bgps
+### Flags and Arguments - bgps <main project file>.c|.cpp [-c gcc|g++] [-o <output filename>] [-r]
 
 - Arg 1 - indicate the filename of the C/C++ project file with the main() function
 	- this is where the script will look for headers/implementation files to add to the script
@@ -17,7 +17,7 @@
 	- defaults to filename from -f, and drops the file extension
 - -r - [optional] - indicate whether or not the script should run the new executable after compilation
 
-## Flags and Arguments - install.sh
+### Flags and Arguments - sudo ./install.sh [-s] [-r] [-d <directory>] [-u]
 
 - -s - [optional] - Run install silently
 - -r - [optional] - View README.md after the install is complete (3s pause before README.md opens)
