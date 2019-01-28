@@ -16,15 +16,37 @@ funky=$(tput setaf 6; tput setab 0) # set styling for WOW factor
 nofunky=$(tput sgr0) # clear styling
 
 # look at flags for script
-while getopts :d:sru option; do # can run install with -s command for silence, and -r if you want to read the README
-	case $option in
-		d) dir=$OPTARG;; # set different directory to install to, for whatever reason
-		s) silent=0;; # run silently, 0 for yes, 1 for no
-		r) readme=0;; # to view README after install
-		u) uninstall=0;; # to remove symlink from /usr/local/bin/
-		?) echo "Not sure what you meant by $OPTARG, but I'm choosing to ignore it...";;
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+	flag="$1"
+	case $flag in
+		-d|--directory)
+			dir="$2"
+			shift # past argument
+			shift # past value
+			;;
+		-s|--silent)
+			silent=0
+			shift # past argument
+			shift # past value
+			;;
+		-r|--readme)
+			readme=0
+			shift # past argument
+			shift # past value
+			;;
+		-u|--uninstall)
+			uninstall=0
+			shift # past argument
+			shift # past value
+			;;
+		*) # unknown argument
+			POSITIONAL+=("$1")
+			shift # past argument
+			;;
 	esac
 done
+set -- "${POSITIONAL[@]}" # restore positional parameters
 
 if [[ -z dir ]]; then
 	dir="/usr/local/bin"

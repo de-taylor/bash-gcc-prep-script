@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # BASH GCC Prep Script
 # Simplifies the compilation of large C and C++ projects without using a clunky IDE by automatically finding and adding your header
@@ -10,22 +9,41 @@
 compflag=0 # whether or not to compile, 0=true, 1=false
 runflag=1 # whether or not to run the program after compiling, 0=true, 1=false, default to no
 
-# styling variables
+# global variables
+# styling
 errortext=$(tput setaf 1; tput setab 0) # red on black background
 actiontext=$(tput setaf 6; tput setab 0) # blue on black background
 cleartext=$(tput sgr0) # clear styling
+# misc
+filename=$1 # should be argument 1 for the script
 
 # get flags and flag values from script call
-while getopts :c:o:r flag; do
-	case $flag in
-		c) compiler=$OPTARG;; # what type of compiler, gcc/g++ [optional]
-		o) outputfile=$OPTARG;; # what the output file should be called, default to filename [optional]
-		r) runflag=0;; # yes, run file upon successful compilation [optional]
-		?) echo $errortext"$OPTARG is not a recognized option for this script."$cleartext && compflag=1;;
+POSITIONAL=() # array to hold unknown arguments
+while [[ $# -gt 0 ]]; do
+	flag="$2"
+	 case $flag in
+		-c|--compiler)
+			compiler="$3"
+			shift # past argument
+			shift # past value
+			;;
+		-o|--output)
+			outputfile="$3"
+			shift # past argument
+			shift # past value
+			;;
+		-r|--run-program)
+			runflag=0
+			shift # past argument
+			shift # past value
+			;;
+		*) # unknown argument
+			POSITIONAL+=("$2") # save in array for later
+			shift # past argument
+			;;
 	esac
 done
-
-filename=$1 # should be argument 1 for the script
+set -- "${POSITIONAL[@]}" # restore positional parameters
 
 # error resistance for filename
 while [[ -z $filename ]]; do # if the variable is empty

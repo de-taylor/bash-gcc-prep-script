@@ -4,24 +4,24 @@
 
 ## Description of Scripts
 
-### Flags and Arguments - bgps [-c gcc | g++] [-o <output filename>] [-r] <main project file>.c | <main project file>.cpp
+### Flags and Arguments - `bgps <filename>.c | <filename>.cpp  [-c gcc | g++] [-o <output filename>] [-r]`
 
-- Arg 1 - indicate the filename of the C/C++ project file with the main() function
+- Argument 1 (filename) - indicate the filename of the C/C++ project file with the main() function
 	- this is where the script will look for headers/implementation files to add to the script
 	- for .h files, the script tries to find both a .h and a .c file to the compilation command
-- -c - [optional] - indicate the compiler to use, gcc or g++
+- -c|--compiler - [optional] - indicate the compiler to use, gcc or g++
 	- defaults to gcc if none specified
-- -o - [optional] - indicate the name of the compiled executable
+- -o|--output - [optional] - indicate the name of the compiled executable
 	- defaults to filename from -f, and drops the file extension
-- -r - [optional] - indicate whether or not the script should run the new executable after compilation
+- -r|--run-program - [optional] - indicate whether or not the script should run the new executable after compilation
 	- defaults to not running the program after compilation
 
-### Flags and Arguments - sudo ./install.sh [-s] [-r] [-d <directory>] [-u]
+### Flags and Arguments - `sudo ./install.sh [-s] [-r] [-d <directory>] [-u]`
 
-- -s - [optional] - Run install silently
-- -r - [optional] - View README.md after the install is complete (3s pause before README.md opens)
-- -d - [optional] - Set a new directory to place the symlink. Not recommended, unless you want to put it in /usr/bin/ or /usr/sbin/ instead of the default /usr/local/bin
-- -u - [optional] - Uninstall, essentially just removes the symlink, you still have to delete the files if you want it gone.
+- -s|--silent - [optional] - Run install silently
+- -r|--readme - [optional] - View README.md after the install is complete (3s pause before README.md opens)
+- -d|--directory - [optional] - Set a new directory to place the symlink. Not recommended, unless you want to put it in /usr/bin/ or /usr/sbin/ instead of the default /usr/local/bin
+- -u|--uninstall - [optional] - Uninstall, essentially just removes the symlink, you still have to delete the files if you want it gone.
 
 ## WIP
 
@@ -35,6 +35,12 @@
 	- breaking change ((x+1).0)
 
 ## Versioning
+
+### v1.2 - 1/27/2019 - Major change to how flags and arguments are treated, since getopts apparently wasn't playing how I wanted it to with numbered arguments.
+
+- Updated how the bgps.sh and install.sh scripts treat flags (space separated `-a|--arguments`)
+	- numbered arguments broke the previous release
+- Updated README.md to reflect this change
 
 ### v1.1 - 1/26/2019 - Added some major changes to the structure of the script, and added error checking to ensure that I'm not a dunce
 
