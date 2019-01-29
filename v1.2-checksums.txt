@@ -1,9 +1,0 @@
-v1.2.tar.gz
-===========
-ccbae84bef6afa879c775aff2b468418  v1.2.tar.gz	MD5
-e6bf2c5866bfb6e485fe4be16e8ae334ecc88b1972333cb9947e1a7b8a657752  v1.2.tar.gz	SHA256
-
-v1.2.zip
-========
-c97fc9cf4dafe8a0f11791910b0c6b10  v1.2.zip	MD5
-e46b99d959d3b8b4d12e318e6d6b6b67732fa753bbbd7e6ea29b4eb79dd105eb  v1.2.zip	SHA256
