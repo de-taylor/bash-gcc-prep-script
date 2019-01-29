@@ -1,0 +1,9 @@
+v1.1.tar.gz
+===========
+f9738ea0e154496de6c2b391b233dd2a  v1.1.tar.gz	MD5
+e73c21a5d630df445814e6bb461e9e0b273431af343a8f1aa350e57ad252c24e  v1.1.tar.gz	SHA256
+
+v1.1.zip
+========
+0600b74bc1e55d177014254923233d68  v1.1.zip	MD5
+b2ddbc86417547febccfaa655aabb5a069c5a154d46f533d46a3843b6a8410c9  v1.1.zip	SHA256
