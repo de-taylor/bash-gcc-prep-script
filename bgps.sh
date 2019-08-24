@@ -2,7 +2,7 @@
 # BASH GCC Prep Script
 # Simplifies the compilation of large C and C++ projects without using a clunky IDE by automatically finding and adding your header
 # files and their .c bodies to your gcc command. Yippee!
-# Created by Dallas Taylor (TheOnyxheart) under a GPL license, you can distribute, modify, or copy at your own peril.
+# Created by Dallas Taylor (de-taylor) under a GPL license, you can distribute, modify, or copy at your own peril.
 # v1.1 - 01/2019 - Officially released -- and already there's some stuff to fix...
 
 # global flags

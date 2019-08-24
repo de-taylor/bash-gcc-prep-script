@@ -72,7 +72,7 @@ function noisy_install {
 
 function viewreadme {
 	echo "Opening README.md for viewing..."
-	sleep 3s # so I'm not super rude, moving you without warning
+	sleep 3 # so I'm not super rude, moving you without warning
 	more README.md # so you aren't hit with a FULL wall of text
 }
 
