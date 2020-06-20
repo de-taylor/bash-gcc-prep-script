@@ -26,7 +26,7 @@ while [[ $# -gt 0 ]]; do
 			compiler="$3"
 			shift # past argument
 			shift # past value
-			;;
+		;;
 		-o|--output)
 			outputfile="$3"
 			shift # past argument
@@ -61,9 +61,9 @@ fi
 
 # compiler options
 if [[ $compiler == "g++" ]]; then
-	cstd="c++14"
+	cstd="c++17"
 else
-	cstd="c11"
+	cstd="c17"
 fi
 
 # array to hold files to compile, starting with original filename
