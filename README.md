@@ -4,11 +4,12 @@
 
 ## Description of Scripts
 
-### Flags and Arguments - `bgps <filename>.c | <filename>.cpp  [-c gcc | g++] [-o <output filename>] [-r]`
+### Flags and Arguments - `bgps <filename>.c | <filename>.cpp [-h] [-c gcc | g++] [-o <output filename>] [-r]`
 
 - Argument 1 (filename) - indicate the filename of the C/C++ project file with the main() function
 	- this is where the script will look for headers/implementation files to add to the script
 	- for .h files, the script tries to find both a .h and a .c file to the compilation command
+- -h|--help - [optional] - shows the help text on the command line, may be used with or without a filename as the first argument.
 - -c|--compiler - [optional] - indicate the compiler to use, gcc or g++
 	- defaults to gcc if none specified
 - -o|--output - [optional] - indicate the name of the compiled executable
@@ -16,8 +17,9 @@
 - -r|--run-program - [optional] - indicate whether or not the script should run the new executable after compilation
 	- defaults to not running the program after compilation
 
-### Flags and Arguments - `sudo ./install.sh [-s] [-r] [-d <directory>] [-u]`
+### Flags and Arguments - `sudo ./install.sh [-h] [-s] [-r] [-d <directory>] [-u]`
 
+- -h|--help - Shows help text for running the install script.
 - -s|--silent - [optional] - Run install silently
 - -r|--readme - [optional] - View README.md after the install is complete (3s pause before README.md opens)
 - -d|--directory - [optional] - Set a new directory to place the symlink. Not recommended, unless you want to put it in /usr/bin/ or /usr/sbin/ instead of the default /usr/local/bin

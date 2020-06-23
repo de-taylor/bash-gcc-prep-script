@@ -8,6 +8,7 @@
 # global flags
 compflag=0 # whether or not to compile, 0=true, 1=false
 runflag=1 # whether or not to run the program after compiling, 0=true, 1=false, default to no
+helponly=0
 
 # global variables
 # styling
@@ -15,18 +16,28 @@ errortext=$(tput setaf 1; tput setab 0) # red on black background
 actiontext=$(tput setaf 6; tput setab 0) # blue on black background
 cleartext=$(tput sgr0) # clear styling
 # misc
-filename=$1 # should be argument 1 for the script
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+    helponly=1 # set help text without filename as first arg
+else
+    filename=$1 # should be argument 1 for the script, proceed as normal
+fi
 
 # get flags and flag values from script call
 POSITIONAL=() # array to hold unknown arguments
 while [[ $# -gt 0 ]]; do
 	flag="$2"
 	 case $flag in
+        -h|--help)
+            # set help text with filename as first arg
+            helponly=1
+            shift $# # past all other args
+            ;;
 		-c|--compiler)
 			compiler="$3"
 			shift # past argument
 			shift # past value
-		;;
+    		;;
 		-o|--output)
 			outputfile="$3"
 			shift # past argument
@@ -44,6 +55,23 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
+
+# if help flag is set, only run it
+
+if [ $helponly -eq 1 ]; then
+    # add styling
+    echo $actiontext
+    echo $(tput bold)
+
+    printf "\n%s\n\n" "Flags and Arguments - bgps <filename>.c|<filename>.cpp [-h] [-c gcc | g++] [-o <output filename>] [-r]"
+
+    echo $cleartext # clears formatting of header
+
+    printf "\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\n" "Argument 1 (filename) Give the name of the project file with the main() function." "-h|--help) Show this help text." "-c|--compiler) [Optional] Specify gcc/g++ compiler." "-o|--output) [Optional] Specify name of output file, defaults to main file name." "-r|--run-program) [optional] Choose whether to run the program after compilation."
+
+    exit # end script
+
+fi # end help
 
 # error resistance for filename
 while [[ -z $filename ]]; do # if the variable is empty
